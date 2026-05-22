@@ -18,7 +18,8 @@ export const Home = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    status,
+    isPending,
+    isError,
     error
   } = usePlayers(deferredSearchTerm);
 
@@ -33,7 +34,7 @@ export const Home = () => {
   // Filtramos directamente en la "API" mediante usePlayers(deferredSearchTerm)
 
   const itemsLength = data?.pages?.reduce((acc, page) => acc + (page.items?.length || 0), 0) ?? 0;
-  const isEmpty = status === 'success' && itemsLength === 0;
+  const isEmpty = !isPending && !isError && itemsLength === 0;
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -60,7 +61,7 @@ export const Home = () => {
       />
 
       {/* Loading Inicial (Skeleton) */}
-      {status === 'pending' && (
+      {isPending && (
         <Grid container spacing={3}>
           {[...Array(8)].map((_, i) => (
             <Grid key={i} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
@@ -71,7 +72,7 @@ export const Home = () => {
       )}
 
       {/* Error State */}
-      {status === 'error' && (
+      {isError && (
         <Alert severity="error">
           Error al cargar los jugadores: {error?.message}
         </Alert>
@@ -81,7 +82,7 @@ export const Home = () => {
       {isEmpty && (
         <EmptyState searchTerm={searchTerm} />
       )}
-      {!isEmpty && status === 'success' && (
+      {!isEmpty && !isPending && !isError && (
         <Grid container spacing={3}>
           {data?.pages.map((page) =>
             page.items.map((player) => (

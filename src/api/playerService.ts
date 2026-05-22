@@ -9,8 +9,8 @@ const data = {
   })) as Player[],
 };
 
-// QueryKey: ['players', searchTerm]  |  PageParam: number
-type PlayersQueryContext = QueryFunctionContext<[string, string], number>;
+// QueryKey: readonly ['players', searchTerm]  |  PageParam: number
+type PlayersQueryContext = QueryFunctionContext<readonly [string, string], number>;
 
 export const fetchPlayers = async ({ pageParam = 0, queryKey }: PlayersQueryContext): Promise<{ items: Player[], nextCursor: number | null }> => {
   // Simulamos delay
