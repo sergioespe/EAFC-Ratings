@@ -2,6 +2,8 @@
 
 Aplicación web para explorar las valoraciones de jugadores de EA FC 25. Permite listar, buscar y consultar el detalle de cada jugador con scroll infinito y persistencia de caché en local storage.
 
+🚀 **[Ver demo en producción](https://eafc-ratings.vercel.app/)**
+
 ---
 
 ## Ejecutar en local
